@@ -51,7 +51,7 @@ func eh() RESTHandler {
 func MustNewRequest(method, urlStr string) *http.Request {
 	req, err := http.NewRequest(method, urlStr, bytes.NewBufferString(""))
 	if err != nil {
-		log.Fatal("Unexpected error: %s", err.Error())
+		log.Fatalf("Unexpected error: %s", err.Error())
 	}
 	return req
 }

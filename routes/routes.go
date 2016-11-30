@@ -33,7 +33,7 @@ func ApplyRoutes(router *mux.Router, routes []*Route, ParentURI []string) {
 
 		uriHandlers = append(
 			uriHandlers,
-			router.HandleFunc(strings.Join(cget, "/"), route.Handler.HandleGetList).Methods("GET").Name(route.Name+":cget"),
+			router.HandleFunc(strings.Join(cget, "/"), route.Handler.HandleGetList).Methods("GET").Name(fmt.Sprintf("%s:%s", route.Name, "cget")),
 		)
 		uriHandlers = append(
 			uriHandlers,

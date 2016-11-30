@@ -10,8 +10,6 @@ import (
 	"net/http/httptest"
 
 	"log"
-
-	"github.com/gorilla/mux"
 )
 
 type EmptyHandler struct{ DefaultRESTHandler }
@@ -103,9 +101,9 @@ func TestGetRoutes(t *testing.T) {
 		},
 	}
 
-	router := mux.NewRouter()
 	for testName, test := range testData {
-		ApplyRoutes(router, test.routes, []string{""})
+
+		router := GetRouter(test.routes, []string{""})
 
 		for expectedNamedRoute, expectValidRoute := range test.expectNamedRoutes {
 			route := router.GetRoute(expectedNamedRoute)
@@ -124,9 +122,7 @@ func TestGetRoutes(t *testing.T) {
 
 func TestGetRoutesIntegration(t *testing.T) {
 
-	router := mux.NewRouter()
-	ApplyRoutes(
-		router,
+	router := GetRouter(
 		[]*Route{
 			NewRoute(
 				"foo",

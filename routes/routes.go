@@ -19,14 +19,20 @@ func NewRoute(name string, idPattern string, handler RESTHandler, sub []*Route) 
 	return &Route{Name: name, IDPattern: idPattern, Handler: handler, Sub: sub}
 }
 
-func ApplyRoutes(router *mux.Router, routes []*Route, ParentURI []string) {
+func GetRouter(routes []*Route, parentURI []string) *mux.Router {
+	router := mux.NewRouter()
+	ApplyRoutes(router, routes, parentURI)
+	return router
+}
+
+func ApplyRoutes(router *mux.Router, routes []*Route, parentURI []string) {
 
 	for _, route := range routes {
 
 		uriHandlers := make([]*mux.Route, 0)
 
 		//route without ID
-		cget := append(ParentURI, route.Name)
+		cget := append(parentURI, route.Name)
 
 		//route with ID
 		get := append(cget, route.IDPattern)

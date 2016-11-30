@@ -24,11 +24,6 @@ type RESTHandler interface {
 
 type DefaultRESTHandler struct{}
 
-//Init creates the context passed to each handler. Overriding this allows population of the context for all
-//verbs
-func (h *DefaultRESTHandler) Init(rw http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
-	next(rw, r)
-}
 func (h *DefaultRESTHandler) HandleGet(rw http.ResponseWriter, r *http.Request) {
 	http.Error(rw, "Not Implemented", http.StatusNotImplemented)
 }
